@@ -6,6 +6,8 @@ const cors = require('cors');
 const createError = require('http-errors');
 const connectDB = require('./database/connectDB');
 const userRouter = require('./router/user.router');
+const xss = require('xss-clean');
+const helmet = require('helmet');
 
 
 
@@ -40,6 +42,8 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(xss());
+app.use(helmet());
 
 
 app.use('/api', userRouter);
