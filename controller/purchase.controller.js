@@ -97,10 +97,8 @@ exports.deletePurchase = async(req, res)=>{
 
 exports.getAllPurchases= async (req, res)=>{
   try {
-    const id = req.user._id;
-    console.log(id);
-
-    const users = await User.findOne({ userId: id })
+ 
+    const users = await User.findOne({ })
     if(users.role === "admin" ){
       res.status(501).send('You are not authorized as Admin')
     };

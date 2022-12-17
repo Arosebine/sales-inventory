@@ -1,5 +1,4 @@
 const express = require('express');
-const { createOrder, updateOrder, deleteOrder, deleteOrderByProductId, deleteOrderBySupplier, getAllOrders, getOrderById } = require('../controller/order.controller');
 const { createPurchase, updatePurchase, deletePurchase, getPurchaseById, getPurchaseByUserId, getAllPurchases } = require('../controller/purchase.controller');
 const { createSales, deleteSales, getAllSales, getSalesById, getSalesByUserId, getSalesByProductId, getSalesByProductQuantity, getSalesByDate } = require('../controller/sales.controller');
 const { updateSupplier, createSupplier, getAllSuppliers, deleteSupplier, getSupplierByName } = require('../controller/supplier.controller');
@@ -41,14 +40,6 @@ router.get('/viewsales', isAuth, getAllSales );
 
 
 
-// order form
-router.post('/order', createOrder );
-router.put('/update/', updateOrder );
-router.delete('/delete/', deleteOrder );
-router.delete('/delete/:productId', deleteOrderByProductId );
-router.delete('/delete/:supplier', deleteOrderBySupplier );
-router.get('/order', isAuth, getAllOrders );
-router.get('/order/:id', isAuth, getOrderById );
 
 
 

@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 
 exports.createSupplier = async(req, res)=>{
     try {
-        const { userId, supplierName, supplierEmail, supplierPhone, supplierAddress, supplierDescription } = req.body;
+        const { supplierName, supplierEmail, supplierPhone, supplierAddress, supplierDescription } = req.body;
         // validate the user
         const user = await User.findOne();
         if (user.role == "admin") {
@@ -18,7 +18,6 @@ exports.createSupplier = async(req, res)=>{
             return res.status(400).send("Supplier already exist, kindly update it");
         }
         const supplier = await Supplier.create({
-            userId,
             supplierName,
             supplierEmail,
             supplierPhone,
@@ -90,7 +89,7 @@ exports.deleteSupplier = async(req, res)=>{
             supplierAddress,
             supplierDescription
         });
-        res.status(200).send(supplier);
+        res.status(200).send({supplier: supplier, 'Deleted successfully': true});
     } catch (error) {
         res
         .status(400)

@@ -5,7 +5,7 @@ const Purchase = require('../models/purchase.model');
 
 exports.createSales = async(req, res)=>{
     try {
-        const { userId, productId,price, productName, productQuantity } = req.body;
+        const { userId, productId, price, productName, productQuantity } = req.body;
         // validate the user
         const user = await User.findOne();
         if (user.role === "admin") {
@@ -40,7 +40,7 @@ exports.createSales = async(req, res)=>{
 // to update a purchase
 exports.updateSales = async(req, res)=>{
     try {
-        const { userId, productName, price,productId, productQuantity } = req.body;
+        const { productName, price, productId, productQuantity } = req.body;
         // validate the user
         const user =  await User.findOne();
         if (user.role === "admin") {
@@ -53,7 +53,9 @@ exports.updateSales = async(req, res)=>{
             return res.status(400).send("Product not found");
         }
         const sales = await Sales.findOneAndUpdate({
-            userId,
+            productName: productName
+        },
+        {
             productName,
             price,
             productId,
@@ -75,7 +77,6 @@ exports.updateSales = async(req, res)=>{
         res.status(201).send(sales);
     } catch (error) {
         res.status(400).send(error);
-        console.log(error);
     }
 };
 
@@ -83,7 +84,7 @@ exports.updateSales = async(req, res)=>{
 // to delete a purchase
 exports.deleteSales = async(req, res)=>{
     try {
-        const { userId, productName, price, productId, productQuantity } = req.body;
+        const { productName, price, productId, productQuantity } = req.body;
         // validate the user
         const user =  await User.findOne();
         if (user.role === "admin") {
@@ -99,7 +100,6 @@ exports.deleteSales = async(req, res)=>{
             productName: productName
         },
         {
-            userId,
             productId,
             productName,
             price,
