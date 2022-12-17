@@ -74,7 +74,7 @@ exports.userLogin = async (req, res) => {
     res.cookie('access-token', token);
     return res
       .status(202)
-      .send({ message: 'User logged in successfully', token: token });
+      .send({ message: 'User logged in successfully', token: token, user: checkUser });
   } catch (error) {
     console.log(error);
     return res
