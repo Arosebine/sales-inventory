@@ -40,26 +40,18 @@ exports.createPurchase = async(req, res)=>{
 exports.updatePurchase = async(req, res)=>{
     try {
 
-        const { userId, productId, productName, sku, productCostPrice, productQuantity, productDescription, productImage, productCategory  } = req.body;
+        const { productName, productQuantity } = req.body;
         // validate the user
         const user =  await User.findOne();
         if (user.role === "admin") {
             return res.status(400).send("You are not authorized to make an update");
         };       
-        const id = req.params.id;
         const purchase = await Purchase.findOneAndUpdate({
             productName: productName
         }, 
         {
-            userId,
-            productId,
-            productName,
-            sku,
-            productCostPrice,
             $inc: { productQuantity : +productQuantity },
-            productDescription,
-            productImage,
-            productCategory
+            
         },
         {
             new: true
@@ -67,7 +59,6 @@ exports.updatePurchase = async(req, res)=>{
         res.status(201).send(purchase);
     } catch (error) {
         res.status(500).send(error);
-        
     }
 };
 
@@ -77,9 +68,7 @@ exports.deletePurchase = async(req, res)=>{
     try {
         const {  userId, productId, productName, sku, productCostPrice, productQuantity, productDescription, productImage, productCategory } = req.body;
          // validate the user
-        const user =  await User.findOne({
-            _id: userId
-        });
+        const user =  await User.findOne({});
         if (!user == "admin") {
             return res.status(400).send("You are not authorized to make a delete");
         };

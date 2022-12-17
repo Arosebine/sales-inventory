@@ -88,16 +88,15 @@ exports.userLogin = async (req, res) => {
 
 exports.viewUsers = async (req, res)=>{
   try {
-    const id = req.user._id;
-
-    const users = await User.findOne({ userId: id })
+  
+    const users = await User.findOne();
     if(users.role === "admin" ){
       res.status(501).send('You are not authorized as Admin')
     };
     const existUsers = await User.find();
-    res.status(200).send(existUsers)  
+    res.status(200).send({ user: existUsers });  
   } catch (error) {
-    
+    console.log(error);
   }
 };
 
@@ -106,30 +105,31 @@ exports.viewUsers = async (req, res)=>{
 
 exports.updateUser = async (req, res)=>{
   try {
-    const id = req.user._id;
-    const userId = await User.findOne({ userId: id })
+    const email = req.body.email;
+    const userId = await User.findOne({ email: email })
     if(userId.role === "admin" ){
       res.status(501).send('You are not authorized as Admin')
     }; 
-    const update = {
-      first_name: req.params.first_name,
-      last_name: req.params.last_name,
-      password: req.params.password,
-      phone_number: req.params.phone_number,
-      address: req.params.address,}   
-    const user = await User.findByIdAndUpdate({
-      _id: id
+    const { first_name, last_name, phone_number, address } = req.body;
+    
+    const user = await User.findOneAndUpdate({
+      email: email
     },
-    {$set: update },
+    {
+      first_name,
+      last_name,
+      phone_number,
+      address
+    },
     {
       new: true
     },
     );
-    res.status(200).send(user)
-    console.log(user);
+    res.status(200).send(user);
 
   } catch (error) {
     res.status(500).send({ error: error.message })
+    console.log(error);
   }
 };
 

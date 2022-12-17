@@ -24,7 +24,7 @@ router.put('/admin/:id', isAuth, switchAdmin );
 
 // purchase
 router.post('/purchase', createPurchase);
-router.put('/productName', updatePurchase);
+router.put('/productName', isAuth, updatePurchase);
 router.delete('/deleted', deletePurchase);
 router.get('/purchasese/:id', isAuth, getPurchaseById);
 // router.get('/purchase/:userId', isAuth, getPurchaseByUserId);
