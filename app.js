@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const createError = require('http-errors');
-const connectDB = require('./database/databs');
+const connectDB = require('./database/connectDB');
 const userRouter = require('./router/user.router');
 
 
@@ -23,7 +23,7 @@ connectDB();
 
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3067;
 
 
 
@@ -32,7 +32,12 @@ app.get('/', (req, res) => {
     }
 );
 
-app.use(cors());
+app.use(cors({
+  credentials : true,
+  origin : '*',
+  optionsSuccessStatusCode: 200,
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
