@@ -1,17 +1,23 @@
 
 
-Ebine Arowolo Seyi
-Chief Backend Engineer
+##Ebine Arowolo Seyi##
+
+
+###Chief Backend Engineer
 
 
 
-The Documentation of this work is available {link}[https://documenter.getpostman.com/view/18447128/2s8YzZNeDZ]
+The Documentation of this work is available here: [link](https://documenter.getpostman.com/view/18447128/2s8YzZNeDZ)
 
 
 
 
-STACKS:
+###STACKS:
 
-Mongdb
-express
-mongoose
+`Mongdb`
+`express`
+`mongoose`
+`Node.js`
+`Nodemon`
+
+
